@@ -1,11 +1,10 @@
 
 import Spoonacular from './spoonacular.js'
 
-const spoonacularInstance = new Spoonacular();
-const ingredientsSearch = [];
-var favorites = new Set();
-// var recipesPresent = false;
+const ingredientsSearch = []; //Ingredients List
+var favorites = new Set(); //Favorites set
 
+//Gets ingredients list and set from local storage. Same as in the main.js 
 function retrieveFromLocalStorage() {
   const ingredients = localStorage.getItem('ingredients');
   const ingredientsArray = JSON.parse(ingredients);
@@ -17,43 +16,34 @@ function retrieveFromLocalStorage() {
 
   const favoritesRecipes = localStorage.getItem('favorites');
   const favoritesArray = JSON.parse(favoritesRecipes);
-  favorites = new Set(favoritesArray);
-
-  
+  if(favoritesArray != null){
+    favorites = new Set(favoritesArray);
+  }
 }
 
+//Save to local storage, also the same as in main.js
 function saveToLocalStorage() {
   const favoritesSet = JSON.stringify(Array.from(favorites));
   localStorage.setItem('favorites', favoritesSet);
   console.log("Items in local Storage: ")
   console.log(favorites);
-  //console.log(localStorage.getItem('favorites'));
- 
 }
 
 
 retrieveFromLocalStorage();
 
+//Main function that fills in ingredients card for everything that is in favorites
 async function fillSelectedIngredients() {
     try {
-      // const recipe = await spoonacularInstance.include_ingridients(ingredientsSearch);
-  
+        //Error handeling that will display a message and option if there are no favorites
         if(favorites.size == 0){
           displayNoResults("No Favorites Selected");
         }
         else{
-          let tabIndex = 1;
           favorites.forEach((value) => {
             fillRecipeCard(value);
-            //fillFavorites(recipe[i])
-            //tabIndex += 1; 
-          });
-          if(favorites.size == 0){
-            displayNoResults("Looks like there are no recipes with those ingredients");
-          }
-          else{
             hideNoResults();
-          }
+          });
         }
       }
     
@@ -62,18 +52,12 @@ async function fillSelectedIngredients() {
     }
   }
 
-  
-  
-  
-  
-
-async function fillRecipeCard(recipe, tabIndex) {
-  getPercentMatch(recipe)
+//Function to fill up recipe cards with each favorite
+function fillRecipeCard(recipe, tabIndex) {
     const template = document.getElementById("recipeCardTemplate");
     const recipe_selection = document.getElementById("recipes_selection");
     const templateContent = template.content.cloneNode(true);
-    //templateContent.id = recipe.id
-
+  
     const link = templateContent.querySelector("a");
     link.href = "/RecipeDetail.html?recipe=" + recipe.id;
     link.tabIndex = tabIndex;
@@ -94,29 +78,13 @@ async function fillRecipeCard(recipe, tabIndex) {
     favorite.classList.add('clicked')
    
     
-
-    const percentMatch = templateContent.querySelector(".percentMatch");
-    percentMatch.textContent = getPercentMatch(recipe) + "%";
     
     recipe_selection.appendChild(templateContent);
 
     
 }
 
-// function fillFavorites(recipe){
-  
-//   favorites.forEach((value) => {
-//     if (value.id === recipe.id) {
-//       console.log("MATCH");
-//       toggleHeart(recipe);
-//     }
-//   });
-// }
 
-function getPercentMatch(recipe){
-  var recipeIngredients = recipe.extendedIngredients;
-  return (Math.round((ingredientsSearch.length / recipeIngredients.length) * 100)) 
-}
 
 function toggleHeart(recipe) {
   console.log("here")
@@ -132,7 +100,6 @@ function toggleHeart(recipe) {
   }
   location.reload();
   saveToLocalStorage()
-  //console.log(favorites)
 }
 
 function displayNoResults(message = "") {

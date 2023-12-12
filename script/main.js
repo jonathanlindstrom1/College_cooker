@@ -1,12 +1,16 @@
 
 import Spoonacular from './spoonacular.js'
 
-const spoonacularInstance = new Spoonacular();
-const ingredientsSearch = [];
-var favorites = new Set();
-// var recipesPresent = false;
+const spoonacularInstance = new Spoonacular(); //Instance of spoonacular API
+const ingredientsSearch = []; //List of Ingredients that have been selected
+var favorites = new Set(); //A set of all the favorited recipes
 
+//--------------Storage--------------------//
+
+//Gets Ingredients and favorites from local storage
+//Ensures it only sets these if the lists exist in local storage
 function retrieveFromLocalStorage() {
+  //Get Ingredients
   const ingredients = localStorage.getItem('ingredients');
   const ingredientsArray = JSON.parse(ingredients);
   if(ingredientsArray != null){
@@ -14,111 +18,129 @@ function retrieveFromLocalStorage() {
       ingredientsSearch.push(ingredientsArray[i].name);
     }
   }
-
+  //Get favorites
   const favoritesRecipes = localStorage.getItem('favorites');
   const favoritesArray = JSON.parse(favoritesRecipes);
-  favorites = new Set(favoritesArray);
-
-  
+  if(favoritesArray != null){
+    favorites = new Set(favoritesArray);
+  }
 }
 
+//Saves value of favorites to local storage when called
 function saveToLocalStorage() {
   const favoritesSet = JSON.stringify(Array.from(favorites));
   localStorage.setItem('favorites', favoritesSet);
   console.log("Items in local Storage: ")
   console.log(favorites);
-  //console.log(localStorage.getItem('favorites'));
- 
 }
 
-
+//Sets the values before everything below
 retrieveFromLocalStorage();
 
+
+//--------------------MAIN PAGE FUNCTIONS---------------------//
+
+//Async function to make the api call and decided what to be displaying right now
 async function fillSelectedIngredients() {
     try {
       const recipe = await spoonacularInstance.include_ingridients(ingredientsSearch);
-  
+
+        //Edge case of no Ingredients searched
         if(ingredientsSearch.length == 0){
           displayNoResults("No ingredients selected");
         }
         else{
-          
+           //API returns a list of recipes
           for (var i = 0; i < recipe.length; i++) {
-            fillRecipeCard(recipe[i]);
-            //fillFavorites(recipe[i])
-            
+            fillRecipeCard(recipe[i], true);
           }
+          //Edge case of the list the API returning being empty
           if(recipe.length == 0){
             displayNoResults("Looks like there are no recipes with those ingredients");
           }
+          //Hiding error messaging and buttons if the List is not empty.
           else{
             hideNoResults();
           }
         }
       }
-    
+    //Error handeling if the API key is wrong, the API is down, etc
     catch (error) {
       console.error('Error fetching random recipes:', error);
     }
   }
 
   
-  
-  
-  
-
-async function fillRecipeCard(recipe) {
+//Function that takes the card template and fills it with a given recipes info
+async function fillRecipeCard(recipe, percents) {
   getPercentMatch(recipe)
+    //duplicate the template
     const template = document.getElementById("recipeCardTemplate");
     const recipe_selection = document.getElementById("recipes_selection");
     const templateContent = template.content.cloneNode(true);
-    //templateContent.id = recipe.id
 
+    //Set the link to a detail page of that recipes_id
     const link = templateContent.querySelector("a");
     link.href = "/RecipeDetail.html?recipe=" + recipe.id;
-    // link.tabIndex = tabIndex;
 
-
+    //Set the image/alt text of the card to the recipe image
     const image = templateContent.querySelector("img");
     image.src = recipe.image;
     image.alt = recipe.title;
 
+    //Set the title of the card
     const title = templateContent.querySelector(".card-title");
     title.textContent = recipe.title;
 
+    //Adding favorite icons. If the card is in favorites than it will set the heart to clicked
     const favorite = templateContent.querySelector(".heart");
     favorite.id = recipe.id;
-    // console.log(favorite)
     favorite.addEventListener('click', () => { toggleHeart(recipe); })
     favorites.forEach((value) => {
       if (value.id === recipe.id) {
-        console.log("MATCH");
         favorite.innerHTML = '<i class="fas fa-heart icon"></i>';
         favorite.classList.add('clicked')
       }
     });
-    // console.log(favorites)
    
-    
-
+    //Fills the % of ingreidents that match for a given card
     const percentMatch = templateContent.querySelector(".percentMatch");
-    percentMatch.textContent = getPercentMatch(recipe) + "%";
-    
-    recipe_selection.appendChild(templateContent);
+    if(percents){
+      percentMatch.textContent = getPercentMatch(recipe) + "%";
+    }
+    //Sets it to 0% when calling random recipes
+    else{
+      percentMatch.textContent =  "0%";
+    }
 
-    
+    //Attaches card to DOM
+    recipe_selection.appendChild(templateContent);   
 }
 
-function fillFavorites(recipe){
+//async function to allow to make an API call for random recipes
+async function setRandomRecipes(){
+  hideNoResults()
+  try {
+    const recipe = await spoonacularInstance.random_recipes();
+    for(var i = 0; i<recipe.length; i++){
+      fillRecipeCard(recipe[i], false)
+    }
+  }
   
- 
+  catch (error) {
+    console.error('Error fetching random recipes:', error);
+  }
 }
 
+//----------HELPER FUNCTIONS-----------//
+
+//Will return the % of ingreidents that match for a given recipe
 function getPercentMatch(recipe){
   var recipeIngredients = recipe.extendedIngredients;
   return (Math.round((ingredientsSearch.length / recipeIngredients.length) * 100)) 
 }
 
+//Used to handle favoriting recipes and ensuring no duplicates
 function toggleHeart(recipe) {
   const heart = document.getElementById(recipe.id)
   console.log(inFavorites(recipe))
@@ -145,14 +167,17 @@ function toggleHeart(recipe) {
       favorites.delete(recipe)
     }
   }
+  //after every click resaves favorites
   saveToLocalStorage()
-
 }
 
+//Simple boolean function to tell if a recipe is already in favorites. Checks with ids to avoid different instances of objects
+//with the same IDs being added.
 function inFavorites(recipe) {
   return Array.from(favorites).some((value) => value.id === recipe.id);
 }
 
+//Used to display a feedback message and give the user options
 function displayNoResults(message = "") {
   const contain = document.getElementById("no_results");
   contain.classList.remove("secret")
@@ -166,10 +191,9 @@ function displayNoResults(message = "") {
   buttons.forEach(button => {
     button.classList.remove('secret');
   });
-
-  
 }
 
+//Used to hide the error message and options
 function hideNoResults() {
   const contain = document.getElementById("no_results");
   contain.classList.add("secret");
@@ -181,25 +205,12 @@ function hideNoResults() {
   });
 }
 
-async function setRandomRecipes(){
-  hideNoResults()
-  try {
-    const recipe = await spoonacularInstance.random_recipes();
-    for(var i = 0; i<recipe.length; i++){
-      fillRecipeCard(recipe[i])
-    }
-  }
-  
-  catch (error) {
-    console.error('Error fetching random recipes:', error);
-  }
-}
-
+//Sets an event listner to the random recipes button
 const random = document.querySelector("#random_recipes");
 console.log(random)
 random.addEventListener('click', () => { setRandomRecipes(); })
  
-
+//Calls the main function to make the API call and fill ingreidents
 fillSelectedIngredients()
 
 

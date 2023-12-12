@@ -1,4 +1,4 @@
-
+//Pulls the apikey that was inputted 
 function retrieveFromLocalStorage() {
     const key = localStorage.getItem('api');
     const apiKey = JSON.parse(key);
@@ -7,14 +7,14 @@ function retrieveFromLocalStorage() {
     
 }
 
-//retrieveFromLocalStorage()
 
 class Spoonacular {
     constructor() {
+        //sets APIkey equal to whatever was stored in local storage
         this.API = retrieveFromLocalStorage()
-        console.log(this.API)
     }
 
+    //API call for 18 random recipes
     async random_recipes(number = 18) {
         const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?&number=${number}`;
         const options = {
@@ -37,7 +37,7 @@ class Spoonacular {
         }
     }
     
-
+    //API call for searching recipes by keywords, didn't end up using this one in final implementation
     async recipes_query(query = "pasta", number = "8") {
         const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?addRecipeInformation=true&query=${query}&number=${number}`;
         const options = {
@@ -58,7 +58,8 @@ class Spoonacular {
             console.error(error);
         }
     }
-    
+
+    //API call for searching recipes by a list of ingredients
     async include_ingridients(ingridients = []){
         var include = ""
         for(var i = 0; i< ingridients.length-1; i++){
@@ -85,6 +86,7 @@ class Spoonacular {
         }
     }
 
+    //API call for getting all the info for a recipe based on its ID, used for the details page
     async get_recipe_by_id(id){
         const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`;
         // console.log(url)
@@ -106,6 +108,7 @@ class Spoonacular {
         }
     }
 
+    //API call for searching for ingredients by keywords. Returns 20 results
     async search_ingredients(query = "pepper"){
         const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/search?query=${query}&number=20`;
         const options = {
@@ -129,5 +132,6 @@ class Spoonacular {
     }
 };
 
+//exports it so other JS files can access it
 export default Spoonacular;
 

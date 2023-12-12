@@ -23,14 +23,19 @@ function retrieveFromLocalStorage() {
 
 // Define an async function to use await
 async function main(query) {
+    if(query == ""){
+        displayNoResults("Search an Ingredient")
+    }
+    else{
     try {
         clearIngredients();
         for (var i = 0; i < selectedIngredients.length; i++) {
                 fillIngredientCard(selectedIngredients[i]); 
         }
         const ingredients = await spoonacularInstance.search_ingredients(query);
+        
         if(ingredients.length == 0){
-            displayNoResults() 
+            displayNoResults("No Ingredients found, please check your spelling") 
         }
         else{
             hideNoResults() 
@@ -47,6 +52,7 @@ async function main(query) {
     } catch (error) {
         console.error('Error fetching ingredients:', error);
     }
+    }   
 }
 
 function searchIngredients() {
@@ -123,9 +129,26 @@ function hideNoResults() {
     contain.classList.add("secret");
 }
 
-function displayNoResults() {
+// function displayNoResults(message = "") {
+//     const contain = document.getElementById("no_results");
+//     contain.classList.remove("secret")
+    
+//     const message_header = document.querySelector("h2");
+//     message_header.innerHTML = message;
+  
+//     const buttons = document.querySelectorAll('.button');
+  
+  
+//     buttons.forEach(button => {
+//       button.classList.remove('secret');
+//     });
+
+function displayNoResults(message = "") {
     const contain = document.getElementById("no_results");
     contain.classList.remove("secret");
+
+    const message_header = document.querySelector("h2");
+    message_header.innerHTML = message;
 }
 
 function fillIngredientCard(ingredient) {

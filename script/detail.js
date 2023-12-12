@@ -1,13 +1,14 @@
-
 import Spoonacular from './spoonacular.js';
 
-console.log("here");
-const spoonacularInstance = new Spoonacular();
-const queryString = window.location.search;
+
+const spoonacularInstance = new Spoonacular(); //Instance of API
+const queryString = window.location.search; 
 const params = new URLSearchParams(queryString);
 const id = params.get("recipe");
+//sets ID equal to the specific recipe that was clicked on
 
 
+//main function, will make an API call to get all the info for a given recipe
 async function main() {
   try {
 
@@ -20,14 +21,18 @@ async function main() {
   }
 }
 
+//will update all elements on the page based on the recipe info from the API call
 function updateDetailPage(recipe) {
+  //Sets the image and alt text
   const detailImage = document.querySelector('.detail_image img');
   detailImage.src = recipe.image;
   detailImage.alt = recipe.title;
 
+  //Sets the title
   const titleElement = document.querySelector('.title h1');
   titleElement.textContent = recipe.title;
 
+  //Sets the ingredients
   const ingredientsElement = document.querySelector('.ingridients');
   ingredientsElement.innerHTML = '<h3>Ingredients:</h3>';
   recipe.extendedIngredients.forEach((ingredient) => {
@@ -36,6 +41,7 @@ function updateDetailPage(recipe) {
     ingredientsElement.appendChild(ingredientItem);
   });
 
+  //Sets the steps 
   const stepsElement = document.querySelector('.steps');
   stepsElement.innerHTML = '<h3>Steps:</h3>';
   recipe.analyzedInstructions[0].steps.forEach((step) => {
@@ -45,4 +51,5 @@ function updateDetailPage(recipe) {
   });
 }
 
+//Calls main to fill the page
 main();
