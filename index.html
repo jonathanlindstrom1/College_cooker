@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoonacular API Key Input</title>
+</head>
+<body>
+
+  <div id="apiKeyInput">
+    <label for="apiKey">Enter your Spoonacular API Key:</label>
+    <input type="text" id="apiKey" placeholder="Your API Key">
+    <a href = "recipes.html">
+      <button onclick="setApiKey()">Submit</button>
+    </a>
+    
+  </div>
+
+  <script>
+    var apiKeyValue = ""
+    function saveToLocalStorage() {
+        const key = JSON.stringify(apiKeyValue);
+        localStorage.setItem('api', key);
+        console.log("Items in local Storage: ")
+        console.log(key)
+       
+      }
+    function setApiKey() {
+      const apiKeyInput = document.getElementById('apiKey');
+      console.log(apiKeyInput)
+      const apiKey = apiKeyInput.value.trim();
+      console.log(apiKey)
+
+      if (apiKey !== '') {
+        apiKeyValue = apiKey;
+        saveToLocalStorage();
+
+        
+      
+      } else {
+        alert('Please enter a valid API key.');
+      }
+    }
+
+    
+  </script>
+
+</body>
+</html>

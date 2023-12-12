@@ -1,0 +1,141 @@
+
+.text {
+    color:black;
+    font-size: 15px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #D9D9D9;
+    transition: 0.3s;
+   
+    
+}
+
+.recipe {
+    margin-left: 0;
+    margin-bottom: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+    height: 300px; /* Change to auto to allow the content to dictate the height */
+    width: 300px;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.recipe:focus{
+    border  :auto;
+}
+
+.recipe img {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#recipes_selection{
+    display:flex;
+    justify-content: space-evenly;
+    gap:32px;
+    flex-wrap:wrap;
+}
+   
+
+
+.recipe:focus .card-body, .recipe:hover .card-body {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #d6ffcb;
+    color:#2f2f2f;
+
+}
+
+
+.card{
+    outline:none;
+}
+
+.card-body{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #ECECEC;
+    color:#2f2f2f;;
+    transition: .3s;
+    
+}
+
+.card-title{
+    text-align:center;
+    font-size:16px;
+    font-weight:bold;
+}
+
+
+
+
+.heart .icon {
+    font-size: 18px; /* Adjust the size of the icon as needed */
+    color: black; /* Adjust the color of the icon as needed */
+    z-index:2;
+    
+  }
+  
+  .heart{
+    width:40px;
+    height:40px;
+    position: absolute;
+    top: 10px; /* Adjust the top position of the icon */
+    left: 270px;
+    transform: translateX(-50%);
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:rgba(255, 255, 255, 0.7);
+    border-radius:50%;
+    transition: 0.4s;
+  }
+
+  .clicked .icon {
+    color: red;
+    transition: 0.4s;
+    
+  }
+
+  .percent{
+    width:40px;
+    height:40px;
+    position: absolute;
+    top: 10px; /* Adjust the top position of the icon */
+    left: 30px;
+    transform: translateX(-50%);
+    z-index:2;
+    display:flex;
+    align-items:center;
+    text-align:center;
+    justify-content:center;
+    background-color:rgba(255, 255, 255, 0.7);
+    border-radius:50%;
+  }
+
+  .percent p{
+    margin-top:16px;
+    font-size:16px;
+    color:#000;
+  }
+
+ 
+  

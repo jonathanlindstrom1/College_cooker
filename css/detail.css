@@ -1,0 +1,17 @@
+.detail_image{
+    text-align:center; 
+    padding:2vh;
+    display:flex;
+    justify-content:center;
+    width:100%;
+}
+
+.detail_image img{
+    width:50vw;
+    height:auto;
+    margin-bottom:24px;
+}
+
+#details{
+    width:100%;
+}
