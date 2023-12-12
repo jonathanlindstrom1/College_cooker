@@ -19,7 +19,7 @@
     margin-bottom: 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     outline: none;
-    height: 300px; /* Change to auto to allow the content to dictate the height */
+    height: 300px; 
     width: 300px;
     overflow: hidden;
     margin-top: 0;
@@ -60,7 +60,6 @@
 
 }
 
-
 .card{
     outline:none;
 }
@@ -87,8 +86,8 @@
 
 
 .heart .icon {
-    font-size: 18px; /* Adjust the size of the icon as needed */
-    color: black; /* Adjust the color of the icon as needed */
+    font-size: 18px;
+    color: black; 
     z-index:2;
     
   }
@@ -97,7 +96,7 @@
     width:40px;
     height:40px;
     position: absolute;
-    top: 10px; /* Adjust the top position of the icon */
+    top: 10px;
     left: 270px;
     transform: translateX(-50%);
     z-index:2;

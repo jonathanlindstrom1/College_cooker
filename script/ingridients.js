@@ -2,9 +2,9 @@
 import Spoonacular from './spoonacular.js';
 
 const spoonacularInstance = new Spoonacular();
-var selectedIngredients = [];
-var ingridientsDisplayed = [];
-var ingridientDisplayedIDS = [];
+var selectedIngredients = []; //This is a list of the ingredients selected in local storage
+var ingridientsDisplayed = []; //This is a list of the ingredients displayed
+var ingridientDisplayedIDS = []; //This is a list of all the ingredients displayed IDS, Helps avoid duplicates
 
 function retrieveFromLocalStorage() {
     const ingredients = localStorage.getItem('ingredients');
@@ -18,10 +18,10 @@ function retrieveFromLocalStorage() {
     }
   }
 }
-  
+  //Gets the currently stored ingredients from local storage.
   retrieveFromLocalStorage();
 
-// Define an async function to use await
+// Main function that will display the ingredients based on the query inputted
 async function main(query) {
     if(query == ""){
         displayNoResults("Search an Ingredient")
@@ -55,18 +55,17 @@ async function main(query) {
     }   
 }
 
+//Helps handle the search querying
 function searchIngredients() {
     const query = document.getElementById("searchQuery").value;
-
-
     console.log("Searching for:", query);
     main(query);
 
 }
 
-
+//When an ingredient is clicked this handles changing its image and adding it to the list of selected ingrideints.
 function addToSelectedIngredients(ingredient) {
-    console.log("Hello");
+    
 
     var id = ingredient.id;
     var selected = false;
@@ -98,7 +97,7 @@ function addToSelectedIngredients(ingredient) {
     
 }
 
-
+//Saves the ingredients to local storage so other files can get the list
 function saveToLocalStorage() {
     const ingredientsArrayString = JSON.stringify(selectedIngredients);
     localStorage.setItem('ingredients', ingredientsArrayString);
@@ -107,7 +106,7 @@ function saveToLocalStorage() {
    
   }
 
-
+//Clears all the ingredient cards currently being displayed that are not selected.
 function clearIngredients() {
     const ingredientSelection = document.getElementById("ingredient_selection");
     console.log(selectedIngredients)
@@ -129,20 +128,7 @@ function hideNoResults() {
     contain.classList.add("secret");
 }
 
-// function displayNoResults(message = "") {
-//     const contain = document.getElementById("no_results");
-//     contain.classList.remove("secret")
-    
-//     const message_header = document.querySelector("h2");
-//     message_header.innerHTML = message;
-  
-//     const buttons = document.querySelectorAll('.button');
-  
-  
-//     buttons.forEach(button => {
-//       button.classList.remove('secret');
-//     });
-
+//Error messaging for no Ingredients
 function displayNoResults(message = "") {
     const contain = document.getElementById("no_results");
     contain.classList.remove("secret");
@@ -151,6 +137,7 @@ function displayNoResults(message = "") {
     message_header.innerHTML = message;
 }
 
+//Fills up the ingredients cards with an image and text
 function fillIngredientCard(ingredient) {
     
 
@@ -181,16 +168,13 @@ function fillIngredientCard(ingredient) {
     ingredientSelection.appendChild(templateContent);
     
 
-    
+    //Makes it so when each card is clicked it becomes a selected ingredient
     overallCard.addEventListener('click', () => { addToSelectedIngredients(ingredient); });
 
     
 }
 
-// const search = document.querySelector("#search");
-// console.log(search);
-// search.addEventListener('click', () => { searchIngredients(); });
-
+//Handles the search querying and gets ingridients when the user hits enter.
 const searchQueryInput = document.getElementById("searchQuery");
 searchQueryInput.addEventListener('keypress', function (e) {
    

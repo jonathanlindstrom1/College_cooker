@@ -1,18 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap');
+
 body {
-	/* font-family: serif; */
-    font-family: serif;
-	/* Set all font in the page to Helvetica with font formatting */
-	font-size: 115%; /* Generally set the font-size to 100% in the body 
-	                    - you can then change with em in the other areas */
-	line-height: 1.7em; /* The line-height property in CSS controls the space 
-	                       between lines of text. */
-	color: #2f2f2f;; /* Hex Color Black */
+	
+  font-family: serif;
+	font-size: 115%;                    
+	line-height: 1.7em;                     
+	color: #2f2f2f;
     background-color: #ffffff;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-
 }   
 
 #content{
@@ -24,10 +20,6 @@ body {
     padding-right: 15%;
     display:flex;
     justify-content:center;
-    /* outline:auto; */
-    
-    /* float:right; */
-    /* padding: 3%; */
 }
 
 .secret {
@@ -38,7 +30,6 @@ body {
     display:flex;
     justify-content:center;
     text-align:center;
-    /* outline:auto; */
     width:100%;
     flex-direction:column;
     align-items:center;
@@ -76,8 +67,7 @@ body {
     
   }
 
-  /* .search_label{
-  } */
+
   #searchForm{
     width:70%;
     border: .5px solid transparent;
@@ -85,14 +75,13 @@ body {
   }
 
   #search{
-    /* outline:auto; */
     width:100%;
-    /* outline:auto; */
     margin-bottom:32px;
     display:flex;
     align-items:center;
     justify-content:Center;
   }
+
   .text_box{
     width:90%;
     border-radius:4px;
@@ -103,8 +92,6 @@ body {
   .search{
     background-color:#fff;
     outline:auto;
-   
-   
   }
 
   
@@ -119,44 +106,5 @@ h1{
 
 a{
     text-decoration: none;
-}
-
-.fade_in {
-
-    -webkit-animation: fadein .5s; 
-       -moz-animation: fadein .5s; 
-        -ms-animation: fadein .5s; 
-         -o-animation: fadein .5s; 
-            animation: fadein .5s;
-}
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-
-@-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-
-@-o-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-
 }
 

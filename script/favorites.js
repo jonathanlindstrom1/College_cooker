@@ -33,7 +33,7 @@ function saveToLocalStorage() {
 retrieveFromLocalStorage();
 
 //Main function that fills in ingredients card for everything that is in favorites
-async function fillSelectedIngredients() {
+async function fillFavorites() {
     try {
         //Error handeling that will display a message and option if there are no favorites
         if(favorites.size == 0){
@@ -72,7 +72,6 @@ function fillRecipeCard(recipe, tabIndex) {
 
     const favorite = templateContent.querySelector(".heart");
     favorite.id = recipe.id;
-    // console.log(favorite)
     favorite.addEventListener('click', () => { toggleHeart(recipe); })
     favorite.innerHTML = '<i class="fas fa-heart icon"></i>';
     favorite.classList.add('clicked')
@@ -85,7 +84,7 @@ function fillRecipeCard(recipe, tabIndex) {
 }
 
 
-
+//Same toggle hearts as in recipe.js
 function toggleHeart(recipe) {
   console.log("here")
   const heart = document.getElementById(recipe.id)
@@ -102,6 +101,7 @@ function toggleHeart(recipe) {
   saveToLocalStorage()
 }
 
+//Similar display and Hide No results from recipe.js
 function displayNoResults(message = "") {
   const contain = document.getElementById("no_results");
   contain.classList.remove("secret")
@@ -132,7 +132,7 @@ function hideNoResults() {
 
 
  
-
-fillSelectedIngredients()
+//Fill up the cards
+fillFavorites()
 
 

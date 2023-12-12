@@ -18,7 +18,7 @@
     margin-bottom: 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     outline: none;
-    height: 200px; /* Change to auto to allow the content to dictate the height */
+    height: 200px;
     width: 200px;
     overflow: hidden;
     margin-top: 0;
@@ -40,10 +40,7 @@
     justify-content: space-evenly;
     gap:32px;
     flex-wrap:wrap;
-    /* outline:auto; */
-    /* width:100%; */
     width:auto;
-    /* height:100vh; */
     
 }
 
@@ -105,97 +102,6 @@
 
 
 
-/* .project:hover .card-title{
-    font-weight:bold;
-} */
-
-  /* .text {
-    color: black;
-    font-size: 15px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background-color: #D9D9D9;
-    transition: 0.3s;
-}
-
-.project {
-    max-width: 35vw;
-    width: 100%;
-    position: relative;
-    margin: 3%;
-    overflow: hidden;
-    height: 40vh;
-    margin-top: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    outline: none;
-}
-
-.carousel:hover .card-body,
-.project:hover .card-body {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #ECECEC;
-    color: #000;
-}
-
-.project img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover; 
-}
-
-.project .secret {
-    display: block;
-    line-height: 1.5em;
-}
-
-.card {
-    outline: none;
-}
-
-.card-body {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #ECECEC;
-    color: #000;
-    transition: .3s;
-}
-
-.card_title {
-    text-align: center;
-}
-
-.carousel {
-    margin-bottom: 4%;
-}
-
-.carousel .carousel-item {
-    height: 55vh;
-}
-
-.pics .carousel-item {
-    height: 55vh;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-    max-height: 100%;
-} */
 
 
   
