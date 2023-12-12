@@ -15,3 +15,12 @@
 #details{
     width:100%;
 }
+
+.title h1{
+    font-size:45px;
+}
+
+.back_div{
+    justify-content: center; 
+    text-align:center; 
+}
